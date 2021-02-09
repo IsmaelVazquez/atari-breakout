@@ -1,0 +1,216 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Breakout amb canvas</title>
+  <link type="text/css" rel="stylesheet" href="css/estils.css">
+</head>
+
+<body>
+  <div id="principal">
+    <div id="display" class="d-inline-block">
+      <h1 class="text-center pt-1 text-border-wite"> Breakout </h1>
+
+      <!-- Controles block -->
+      <div>
+        <table id="controlTable" class="items-center-v">
+          <tr>
+            <th id="switch_pausa">
+              <img id="img_pausa" class="w-50" src="imatges/play.png">
+            </th>
+            <th id="switch_sound">
+              <img id="img_sound" class="w-50" src="imatges/soOff.png">
+            </th>
+          </tr>
+        </table>
+      </div>
+
+
+
+      <!-- Level block -->
+      <div class="mt-1">
+        <small class="d-block text-center">Nivel</small>
+        <!-- <h2 id="nivells" class="d-block text-center mt-0 ">XXX</h2> -->
+
+        <table id="LevelTable" class="items-center-v h-50">
+          <tr>
+            <th id="boton_backLvl">
+              <img id="" class="w-50" src="imatges/back.png">
+            </th>
+            <th id="" class="border-none">
+              <h2 id="nivells" class="d-block text-center mt-0 mb-0 ">XXX</h2>
+            </th>
+            <th id="boton_nextLvl">
+              <img id="" class="w-50" src="imatges/next.png">
+            </th>
+          </tr>
+        </table>
+
+      </div>
+
+      <!-- Vidas block -->
+      <div class="mt-1">
+        <small class="d-block text-center ">Vidas</small>
+        <h2 id="vides" class="d-block text-center mt-0 text-color-red text-border-black"> ❤ </h2>
+      </div>
+
+      <!-- Puntos block -->
+      <div>
+        <small class="d-block text-center">Puntos</small>
+        <h2 id="punts" class="d-block text-center mt-0"> 000 </h2>
+      </div>
+
+      <!-- Ranking block -->
+      <small class="d-block text-center mt-2">Ranking</small>
+      <div>
+        <table id="rankingTable" class="">
+          <tbody>
+            <tr>
+              <td id="primerNom"> --- </td>
+              <td id="primerPunts" class="text-right"> --- </td>
+            </tr>
+            <tr>
+              <td id="segonNom"> --- </td>
+              <td id="segonPunts" class="text-right"> --- </td>
+            </tr>
+            <tr>
+              <td id="tercerNom"> --- </td>
+              <td id="tercerPunts" class="text-right"> --- </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Controles block -->
+      <div class="items-center-h w-75 mt-1">
+        <p class="mt-0 mb-0" id="premP">P: &emsp; Pausa/Continuar</p>
+        <p class="mt-0 mb-0" id="premP">M: &emsp; Silen/Desilen</p>
+        <p class="mt-0 mb-0" id="premP">A/←: &emsp; Izquierda</p>
+        <p class="mt-0 mb-0" id="premP">D/→: &emsp; Derecha</p>
+      </div>
+      <br>
+
+    </div>
+
+
+    <div id="joc" class="d-inline-block ml-1">
+      <canvas id="game"></canvas>
+
+      <div id="alertaContainer">
+
+        <!-- Alerta de derrota -->
+        <div id="alert_derrota" class="alerta" style="display:none;">
+          <!-- score -->
+          <div class="">
+            <h1 id="punts-derr" class="mb-0">000</h1>
+            <small class="mt-0">Tu puntuacion</small>
+          </div>
+          <!-- nombre -->
+          <div class="mt-1">
+            <input id="nom" placeholder="Escribe tu nombre..." value="" type="text" />
+            <small class="mt-0">Tu nombre</small>
+          </div>
+          <!-- boton -->
+          <input type="button" value="Volver a jugar" class="reiniciar mt-1 mb-1 button_alerta">
+        </div>
+
+        <!-- Alerta de nivel superado -->
+        <div id="alert_sigNivel" class="alerta" style="display:none;">
+          <div class="mt-1 mb-1">
+            <h1>Nivel Superado</h1>
+            <input type="button" value="Siguiente nivel" id="seguentNiv" class="mt-1 button_alerta">
+          </div>
+        </div>
+
+
+        <!-- Alerta de ganar juego -->
+        <div id="alert_finalizado" class="alerta" style="display:none;">
+          <div class="mt-1 mb-1">
+            <h1>¡Has superado todos los niveles!</h1>
+
+            <!-- score -->
+            <div class="">
+              <h1 id="punts-gana" class="mb-0">000</h1>
+              <small class="mt-0">Tu puntuacion</small>
+            </div>
+
+            <!-- nombre -->
+            <div class="mt-1">
+              <input id="nom-gana" placeholder="Escribe tu nombre..." value="" type="text" />
+              <small class="mt-0">Tu nombre</small>
+            </div>
+            <!-- boton -->
+            <input type="button" value="Volver a jugar" id="reiniciar" class="reiniciar mt-1 button_alerta">
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+  <div>
+    <p id="firma">
+      Tecnocampus Mataró - Ismael Vázquez Rodríguez
+    </p>
+    <p id="firma">
+      Laboratori Multimèdia
+    </p>
+    <p id="firma">
+      2019/2020
+    </p>
+  </div>
+
+  <!--Sonidos generales-->
+  <audio id="vic">
+    <source src="audio/vic.mp3" type="audio/mpeg"></audio>
+  <audio id="der">
+    <source src="audio/der.mp3" type="audio/mpeg"></audio>
+  <audio id="xoc">
+    <source src="audio/xoc.mp3" type="audio/mpeg"></audio>
+  <audio id="vicPart">
+    <source src="audio/vicPart.wav" type="audio/mpeg"></audio>
+  <audio id="derPart">
+    <source src="audio/derPart.wav" type="audio/mpeg"></audio>
+  <audio id="pop">
+    <source src="audio/pop.mp3" type="audio/mpeg"></audio>
+  <audio id="pop2">
+    <source src="audio/pop2.mp3" type="audio/mpeg"></audio>
+  <audio id="boton">
+    <source src="audio/boton.mp3" type="audio/mpeg"></audio>
+  <audio id="soundtrack">
+    <source src="audio/soundtrack.mp3" type="audio/mpeg"></audio>
+
+  <!--Sonidos Bloques-->
+  <audio id="sound_bomb">
+    <source src="audio/bloques/bomb.mp3" type="audio/mpeg"></audio>
+  <audio id="sound_brick2">
+    <source src="audio/bloques/brick2.mp3" type="audio/mpeg"></audio>
+  <audio id="sound_brick3">
+    <source src="audio/bloques/brick3.mp3" type="audio/mpeg"></audio>
+  <audio id="sound_brick">
+    <source src="audio/bloques/brick.mp3" type="audio/mpeg"></audio>
+  <audio id="sound_freeze">
+    <source src="audio/bloques/freeze.mp3" type="audio/mpeg"></audio>
+  <audio id="sound_live_up">
+    <source src="audio/bloques/live_up.mp3" type="audio/mpeg"></audio>
+  <audio id="sound_points_up">
+    <source src="audio/bloques/points_up.mp3" type="audio/mpeg"></audio>
+  <audio id="sound_points_down">
+    <source src="audio/bloques/points_down.mp3" type="audio/mpeg"></audio>
+  <audio id="sound_speed">
+    <source src="audio/bloques/speed.mp3" type="audio/mpeg"></audio>
+
+
+
+
+  <script src="scripts/jquery-1.11.2.min.js"></script>
+
+  <script src="scripts/breakout.js"></script>
+</body>
+
+</html>
